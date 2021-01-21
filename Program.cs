@@ -7,7 +7,6 @@ using System.Windows;
 //Meddelandegenerator: https://www.patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
 
-
 namespace Game
 {
     class Program
@@ -68,7 +67,6 @@ namespace Game
         //5/_______  /\___  >__|  \___  >____  /__|  __
         //6        \/     \/          \/     \/      \/
 
-
         string[,] gameOverMsg =
         {
             /*1*/{" "," "," "," "," "," "," "," "," ","_","_","_","_","_","_","_","_"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","_","_","_","_","_","_","_","_"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",".","_","." },
@@ -120,22 +118,21 @@ namespace Game
             string cmd;
             Console.Clear();
             Console.WriteLine("Enter a command");
-            Console.WriteLine("NEW: New game");
-            Console.WriteLine("FGT: Fight mode - survive as many battles as possible!");
-            Console.WriteLine("LD: Load Game");
-            Console.WriteLine("EXT: Exit Game");
+            Console.WriteLine("[NEW]: New game");
+            Console.WriteLine("[FGT]: Fight mode - survive as many battles as possible!");
+            Console.WriteLine("[LD]: Load Game");
+            Console.WriteLine("[EXT]: Exit Game");
             do
             {
-                //Console.Write(">");
                 cmd = Console.ReadLine();
             } while (!cmd.Equals("NEW") && !cmd.Equals("LD") && !cmd.Equals("EXT") && !cmd.Equals("FGT"));
 
             if (cmd.Equals("NEW"))
             {
-                NewGame();
+                NewGame();//Inte implementerat
             }else if (cmd.Equals("LD"))
             {
-                LoadGame();
+                LoadGame();//Inte implementerat
             }else if (cmd.Equals("FGT"))
             {
                 StartFightMode();
@@ -181,8 +178,6 @@ namespace Game
             //if (!inBattle)
             //    LoadUserInterfaceOutOfBattle("");
         }
-
-
 
         private void PrintScene(string[,] newUi, Enemy enemy)//Tar en 2d-Array!
         {
@@ -230,36 +225,33 @@ namespace Game
                 }
                 Console.WriteLine();
             }
-            //if (!inBattle)
-            //    LoadUserInterfaceOutOfBattle("");
-
         }
 
         private void LoadUserInterfaceOutOfBattle(string msg)
         {
             Console.WriteLine($" {msg}                                                           ");
             Console.WriteLine($"___________________________________________________________________________");
-            Console.WriteLine($"{player.name}");
+            Console.WriteLine($"{player.name} CLASS: {player.playerClass} LVL:{player.lvl}");
             Console.WriteLine($"Health: {player.healthPoints}   Strength: {player.strength} ");
-            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.strength}    ");
+            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.armor}    ");
         }
 
         private void LoadUserInterfaceInBattle(Enemy enemy)
         {
             Console.WriteLine($"                                                            ");
             Console.WriteLine($"___________________________________________________________________________");
-            Console.WriteLine($"{player.name}                       Enemy: {enemy.name}");
+            Console.WriteLine($"{player.name} CLASS: {player.playerClass} LVL:{player.lvl} Enemy: {enemy.name}");
             Console.WriteLine($"Health: {player.healthPoints}   Strength: {player.strength}   Enemyhealth: {enemy.healthPoints} ");
-            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.strength}      Enemystrength: {enemy.strength}    ");
+            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.armor}      Enemystrength: {enemy.strength}    ");
         }
 
         private void LoadUserInterfaceInBattle(Enemy enemy, string msg)
         {
             Console.WriteLine($"  {msg}                                                          ");
             Console.WriteLine($"___________________________________________________________________________");
-            Console.WriteLine($"{player.name}                       Enemy: {enemy.name}");
+            Console.WriteLine($"{player.name} CLASS: {player.playerClass} LVL:{player.lvl} Enemy: {enemy.name}");
             Console.WriteLine($"Health: {player.healthPoints}   Strength: {player.strength}   Enemyhealth: {enemy.healthPoints} ");
-            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.strength}      Enemystrength: {enemy.strength}    ");
+            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.armor}      Enemystrength: {enemy.strength}    ");
         }
 
         private void UpdateUserInterfaceInBattle(Enemy enemy, string msg)//UPDATE - LADDAR ÄVEN OM SCENE
@@ -272,7 +264,13 @@ namespace Game
             Console.Clear();
             Console.WriteLine("Vad heter din karaktär?");
             string playerName = Console.ReadLine();
-            Player player = new Player(playerName);
+            Console.Clear();
+            Console.WriteLine("Välj klass");
+            Console.WriteLine("WARRIOR");
+            Console.WriteLine("THIEF");
+            Console.WriteLine("MAGE");
+            string classChoice = Console.ReadLine();
+            Player player = new Player(playerName, classChoice);
             return player;
         }
 
@@ -309,79 +307,100 @@ namespace Game
         private void LoadFight(Enemy enemy)
         {
             inBattle = true;
-            //Goblin enemy = new Goblin("Goblin");
-            //Frog enemy = new Frog("Frog");
-            //SpiderSwarm enemy = new SpiderSwarm("Spider Swarm");
             PrintScene(CreateScene(GeneratePicture(enemy.schematic)), enemy);
             StartFight(enemy);
 
         }
 
-
-
-
-        private void StartFight(Enemy enemy)
+        private void StartFight(Enemy enemy)//inte så snygg metod asså.
         {
             Random rnd = new Random();
             UpdateUserInterfaceInBattle(enemy, $"A wild {enemy.name} appears!");
             System.Threading.Thread.Sleep(2000);
 
-            do
+
+            if(player.agility > enemy.agility)
             {
-                UpdateUserInterfaceInBattle(enemy, $"{player.name}s turn!");
-                //Player turn
-                if (FightMenu().Equals("FIGHT"))
+                do
                 {
-                    int atk = rnd.Next(1, player.strength);
-                    atk += player.strength;
-                    if(rnd.Next(1,100) < enemy.agility)
+
+                    UpdateUserInterfaceInBattle(enemy, $"{player.name}s turn!");
+                    //Player turn
+                    if (FightMenu().Equals("FIGHT"))
                     {
                         UpdateUserInterfaceInBattle(enemy, $"");
                         UpdateUserInterfaceInBattle(enemy, $"");
                         UpdateUserInterfaceInBattle(enemy, $"");
                         System.Threading.Thread.Sleep(1000);
-                        UpdateUserInterfaceInBattle(enemy, $"{player.name}s attack misses!");
+                        UpdateUserInterfaceInBattle(enemy, player.Attack(enemy));
                         System.Threading.Thread.Sleep(2000);
+
                     }
                     else
                     {
-                        enemy.healthPoints = enemy.healthPoints - atk;
-                        UpdateUserInterfaceInBattle(enemy, $"");
-                        UpdateUserInterfaceInBattle(enemy, $"");
-                        UpdateUserInterfaceInBattle(enemy, $"");
-                        System.Threading.Thread.Sleep(1000);
-                        UpdateUserInterfaceInBattle(enemy, $"{enemy.name} suffers {atk} damage!");
+                        Environment.Exit(0);
+                    }
+                    //Enemy turn
+                    if (enemy.healthPoints > 1)
+                    {
+                        UpdateUserInterfaceInBattle(enemy, $"{enemy.name} strikes back!");
                         System.Threading.Thread.Sleep(2000);
+                        UpdateUserInterfaceInBattle(enemy, enemy.Attack(player));
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    else
+                    {
+                        //inget görs.
                     }
 
+                } while (player.healthPoints > 1 && enemy.healthPoints > 1);
+            }
+            else
+            {
+                do
+                {
+                    //Enemy turn
 
-                }
-                else
-                {
-                    Environment.Exit(0);
-                }
-                //Enemy turn
-                if(enemy.healthPoints > 1)
-                {
-                    UpdateUserInterfaceInBattle(enemy, $"{enemy.name} strikes back!");
-                    System.Threading.Thread.Sleep(2000);
-                    int enemyAtk = rnd.Next(1, enemy.strength);
-                    enemyAtk += enemy.strength;
-                    player.healthPoints = player.healthPoints - enemyAtk;
-                    UpdateUserInterfaceInBattle(enemy, $"{player.name} suffers {enemyAtk} damage!");
-                    System.Threading.Thread.Sleep(3000);
-                }
-                else
-                {
-                    //inget görs.
-                }
+                        UpdateUserInterfaceInBattle(enemy, $"{enemy.name} attacks!");
+                        System.Threading.Thread.Sleep(2000);
+                        UpdateUserInterfaceInBattle(enemy, enemy.Attack(player));
+                        System.Threading.Thread.Sleep(3000);
 
-            } while (player.healthPoints > 1 && enemy.healthPoints > 1);
+                    if (player.healthPoints > 1)
+                    {
+                        UpdateUserInterfaceInBattle(enemy, $"{player.name}s turn!");
+                        //Player turn
+                        if (FightMenu().Equals("FIGHT"))
+                        {
+                            UpdateUserInterfaceInBattle(enemy, $"");
+                            UpdateUserInterfaceInBattle(enemy, $"");
+                            UpdateUserInterfaceInBattle(enemy, $"");
+                            System.Threading.Thread.Sleep(1000);
+                            UpdateUserInterfaceInBattle(enemy, player.Attack(enemy));
+                            System.Threading.Thread.Sleep(2000);
+
+                        }
+                        else
+                        {
+                            Environment.Exit(0);
+                        }
+                    }
+                    else
+                    {
+                        //Inget görs
+                    }
+
+                } while (player.healthPoints > 1 && enemy.healthPoints > 1) ;
+            }
+            
 
             if(enemy.healthPoints < 1)
             {
+                UpdateUserInterfaceInBattle(enemy, player.AddExperience(enemy));
+                System.Threading.Thread.Sleep(1000);
                 PrintScene(CreateScene(GeneratePicture(victoryMsg)), enemy);
                 System.Threading.Thread.Sleep(3000);
+
                 inBattle = false;
             }
             else
@@ -411,7 +430,9 @@ namespace Game
             do
             {
                 LoadFight(GenerateFightModeEnemyList().ElementAt(rnd.Next(0,3)));
-                victories++;
+                if(player.healthPoints > 1)
+                    victories++;
+
             } while (player.healthPoints > 0);
             ClearScene();
             PrintScene(CreateScene(GeneratePicture(gameOverMsg)));
@@ -446,5 +467,6 @@ namespace Game
             enemyList.Add(spiderSwarm);
             return enemyList;
         }
+
     }
 }

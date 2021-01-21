@@ -38,9 +38,10 @@ namespace Game
             this.name = name;
             this.schematic = goblinSchematic;
             healthPoints = 50;
-            strength = 15;
+            strength = 10;
             armor = 5;
-            agility = 50;
+            agility = 10;
+            expAward = 50;
 
         }
     }

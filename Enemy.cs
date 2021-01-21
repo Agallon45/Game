@@ -12,14 +12,23 @@ namespace Game
         public int armor;
         public string[,] schematic;
         public int agility;
+        public int expAward;
 
-        //public Enemy(string name, string[,] schematic)
-        //{
-        //    this.name = name;
-        //    this.schematic = schematic;
-        //    healthPoints = 50;
-        //    strength = 50;
-        //    armor = 5;
-        //}
+
+        public string Attack(Player player)
+        {
+            Random rnd = new Random();
+            if ((rnd.Next(1, 100)+agility) > player.agility)
+            {
+                int dmg = rnd.Next(1, strength) + strength;
+                //dmg = dmg - player.armor;
+                player.healthPoints = player.healthPoints - dmg;
+                return $"{player.name} suffers {dmg} damage!";
+            }
+            else
+            {
+                return $"{name}s attack misses!";
+            }
+        }
     }
 }

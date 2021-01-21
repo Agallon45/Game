@@ -8,6 +8,7 @@ namespace Game
     {
         public Frog(string name)
         {
+
             string[,] frogSchematic =
             {
                 /*1*/{" "," "," "," "," "," "," ","_"," "," "," "," "," ","_"," "," "," "," "," "," "," "," " },
@@ -28,9 +29,10 @@ namespace Game
             this.name = name;
             this.schematic = frogSchematic;
             healthPoints = 30;
-            strength = 5;
+            strength = 10;
             armor = 5;
-            agility = 50;
+            agility = 30;
+            expAward = 50;
         }
 
 
