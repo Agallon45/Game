@@ -16,7 +16,7 @@ namespace Game
         {
             this.name = name;
             healthPoints = 100;
-            strength = 10;
+            strength = 500;
             armor = 5;
         }
     }

@@ -11,14 +11,15 @@ namespace Game
         public int strength;
         public int armor;
         public string[,] schematic;
+        public int agility;
 
-        public Enemy(string name, string[,] schematic)
-        {
-            this.name = name;
-            this.schematic = schematic;
-            healthPoints = 50;
-            strength = 5;
-            armor = 5;
-        }
+        //public Enemy(string name, string[,] schematic)
+        //{
+        //    this.name = name;
+        //    this.schematic = schematic;
+        //    healthPoints = 50;
+        //    strength = 50;
+        //    armor = 5;
+        //}
     }
 }
