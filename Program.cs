@@ -11,131 +11,69 @@ namespace Game
 {
     class Program
     {
-        bool inBattle = false;
-        string[,] scene =
-{               //74x15
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " },
-                {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," " }
-            };
+        public bool inBattle = false;
 
-        string[,] victoryMsg =
-                //49x6
-        {
-            /*1*/{"_","_","_","_"," "," "," ","_","_","_","_",".","_","_"," "," "," "," "," "," "," "," ","_","_"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",".","_","."},
-            /*2*/{"\\"," "," "," ","\\"," ","/"," "," "," ","/","|","_","_","|"," ","_","_","_","_","_","/"," "," ","|","_"," ","_","_","_","_","_","_","_","_","_","_","_"," ","_","_","_",".","_","_",".","|"," ","|"},
-            /*3*/{" ","\\"," "," "," ","Y"," "," "," ","/"," ","|"," "," ","|","/"," ","_","_","_","\\"," "," "," ","_","_","\\","/"," "," ","_"," ","\\","_"," ","_","_"," ","<"," "," "," ","|"," "," ","|","|"," ","|"},
-            /*4*/{" "," ","\\"," "," "," "," "," ","/"," "," ","|"," "," ","\\"," "," ","\\","_","_","_","|"," "," ","|"," ","("," "," ","<","_",">"," ",")"," "," ","|"," ","\\","/","\\","_","_","_"," ","|"," ","\\","|" },
-            /*5*/{" "," "," ","\\","_","_","_","/"," "," "," ","|","_","_","|","\\","_","_","_"," "," ",">","_","_","|"," "," ","\\","_","_","_","_","/","|","_","_","|"," "," "," ","/"," ","_","_","_","|"," ","_","_" },
-            /*6*/{" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," ","\\","/"}
-        };
-        //VICTORY MESSAGE
-        //1____   ____.__        __                      ._.
-        //2\   \ /   /|__| _____/  |_ ___________ ___.__.| |
-        //3 \   Y   / |  |/ ___\   __\/  _ \_ __ <   |  || |
-        //4  \     /  |  \  \___|  | (  <_> )  | \/\___ | \|
-        //5   \___/   |__|\___  >__|  \____/|__|   / ___| __
-        //6                   \/                   \/     \/
-
-        string[,] defeatMsg =
-        {
-            /*1*/{"_","_","_","_","_","_","_","_"," "," "," "," "," "," "," "," "," "," ","_","_","_","_","_"," "," "," "," "," "," "," "," "," "," "," "," "," "," ","_","_"," "," ",".","_","." },
-            /*2*/{"\\","_","_","_","_","_","_"," ","\\"," "," "," ","_","_","_","_","_","/"," ","_","_","_","_","\\","_","_","_","_"," ","_","_","_","_","_"," ","_","/"," "," ","|","_","|"," ","|"},
-            /*3*/{" ","|"," "," "," "," ","|"," "," ","\\","_","/"," ","_","_"," ","\\"," "," "," ","_","_","\\","/"," ","_","_"," ","\\","\\","_","_"," "," ","\\","\\"," "," "," ","_","_","\\"," ","|"},
-            /*4*/{" ","|"," "," "," "," ","`"," "," "," ","\\"," "," ","_","_","_","/","|"," "," ","|"," ","\\"," "," ","_","_","_","/"," ","/"," ","_","_"," ","\\","|"," "," ","|"," "," ","\\","|" },
-            /*5*/{"/","_","_","_","_","_","_","_"," "," ","/","\\","_","_","_"," "," ",">","_","_","|"," "," ","\\","_","_","_"," "," ",">","_","_","_","_"," "," ","/","_","_","|"," "," ","_","_" },
-            /*6*/{" "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," ","\\","/"," "," "," "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," ","\\","/"," "," "," "," "," "," ","\\","/" }
-        };
-
-        //DEFEAT MESSAGE
-        //1________          _____              __  ._.
-        //2\______ \   _____/ ____\____ _____ _/  |_| |
-        //3 |    |  \_/ __ \   __\/ __ \\__  \\   __\ |
-        //4 |    `   \  ___/|  | \  ___/ / __ \|  |  \|
-        //5/_______  /\___  >__|  \___  >____  /__|  __
-        //6        \/     \/          \/     \/      \/
-
-        string[,] gameOverMsg =
-        {
-            /*1*/{" "," "," "," "," "," "," "," "," ","_","_","_","_","_","_","_","_"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","_","_","_","_","_","_","_","_"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",".","_","." },
-            /*2*/{" "," "," "," "," "," "," "," ","/"," "," ","_","_","_","_","_","/","_","_","_","_","_"," "," "," "," ","_","_","_","_","_"," "," "," ","_","_","_","_"," "," ","\\","_","_","_","_","_"," "," ","\\","_","_","_"," "," ","_","_"," ","_","_","_","_","_","_","_","_","_","_","_","|"," ","|"},
-            /*3*/{" "," "," "," "," "," "," ","/"," "," "," ","\\"," "," ","_","_","_","\\","_","_"," "," ","\\"," "," ","/"," "," "," "," "," ","\\","_","/"," ","_","_"," ","\\"," "," ","/"," "," "," ","|"," "," "," ","\\"," "," ","\\","/"," ","/","/"," ","_","_"," ","\\","_"," "," ","_","_"," ","\\"," ","|" },
-            /*4*/{" "," "," "," "," "," "," ","\\"," "," "," "," ","\\","_","\\"," "," ","\\","/"," ","_","_"," ","\\","|"," "," ","Y"," ","Y"," "," ","\\"," "," ","_","_","_","/"," ","/"," "," "," "," ","|"," "," "," "," ","\\"," "," "," ","/","\\"," "," ","_","_","_","/","|"," "," ","|"," ","\\","/","\\","|" },
-            /*5*/{" "," "," "," "," "," "," "," ","\\","_","_","_","_","_","_"," "," ","(","_","_","_","_"," "," ","/","_","_","|","_","|"," "," ","/","\\","_","_","_"," "," ",">","\\","_","_","_","_","_","_","_"," "," ","/","\\","_","/"," "," ","\\","_","_","_"," "," ",">","_","_","|"," "," "," ","_","_" },
-            /*6*/{" "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," ","\\","/"," "," "," "," "," "," ","\\","/"," "," "," "," "," ","\\","/"," "," "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," "," "," "," "," "," ","\\","/"," "," "," "," "," "," "," ","\\","/" }
-        };
-
-        //GAME OVER MESSAGE
-        //1         ________                       ________                    ._.
-        //2        /  _____/_____    _____   ____  \_____  \___  __ ___________| |
-        //3       /   \  ___\__  \  /     \_/ __ \  /   |   \  \/ // __ \_  __ \ |
-        //4       \    \_\  \/ __ \|  Y Y  \  ___/ /    |    \   /\  ___/|  | \/\|
-        //5        \______  (____  /__|_|  /\___  >\_______  /\_/  \___  >__|   __
-        //6               \/     \/      \/     \/         \/          \/       \/
-
-
-
-
-        
         Player player;
+        public static Program prog;
+        public static SceneHandler sceneHandler;
+        public static MessageHandler msgHandler;
+        public static bool isRunning = true;
 
         static void Main(string[] args)
         {
-            Program prog = new Program();
-            prog.StartGame();
-            prog.LoadMenu();
-            //prog.NewGame();
-            //prog.LoadFight();
+            do
+            {
+
+                prog = new Program();
+                sceneHandler = new SceneHandler();
+                msgHandler = new MessageHandler();
+                prog.StartGame();
+                //StoreHandler storeHandler = new StoreHandler("store");
+                //Store store = storeHandler.CreateStore();
+                //Warrior player = new Warrior("Zav");
+                //player.coin = 200;
+                //store.PrintStore(player);
+                //player.OpenInventory();
+                prog.LoadMenu();
+            } while (isRunning);
+
         }
 
         private void StartGame()
         {
-            Console.WriteLine("___________              __                           ________                       ");
-            Console.WriteLine("\\_   _____/____    _____/  |______    _________.__.  /  _____/_____    _____   ____  ");
-            Console.WriteLine(" |    __) \\__  \\  /    \\   __\\__  \\  /  ___<   |  | /   \\  ___\\__  \\  /     \\_/ __ \\ ");
-            Console.WriteLine(" |     \\   / __ \\|   |  \\  |  / __ \\_\\___ \\ \\___  | \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ ");
-            Console.WriteLine(" \\___  /  (____  /___|  /__| (____  /____  >/ ____|  \\______  (____  /__|_|  /\\___  >");
-            Console.WriteLine("     \\/        \\/     \\/          \\/     \\/ \\/              \\/     \\/      \\/     \\/ ");
+            sceneHandler.PrintScene(sceneHandler.CreateScene(sceneHandler.GeneratePicture(msgHandler.title), true));
             Console.WriteLine("Press any key to start...");
             Console.ReadKey(true);
-            
+
+
         }
 
-        private void LoadMenu()
+        public void LoadMenu()
         {
             string cmd;
             Console.Clear();
+            sceneHandler.PrintScene(sceneHandler.CreateScene(sceneHandler.GeneratePicture(msgHandler.title), true));
             Console.WriteLine("Enter a command");
-            Console.WriteLine("[NEW]: New game");
+            Console.WriteLine("[NEW]: New game - Not yet implemented!");
             Console.WriteLine("[FGT]: Fight mode - survive as many battles as possible!");
-            Console.WriteLine("[LD]: Load Game");
+            Console.WriteLine("[LD]: Load Game - Not yet Implemented!");
             Console.WriteLine("[EXT]: Exit Game");
             do
             {
-                cmd = Console.ReadLine();
-            } while (!cmd.Equals("NEW") && !cmd.Equals("LD") && !cmd.Equals("EXT") && !cmd.Equals("FGT"));
+                cmd = Console.ReadLine().ToLower();
+            } while (!cmd.Equals("new") && !cmd.Equals("ld") && !cmd.Equals("ext") && !cmd.Equals("fgt"));
 
-            if (cmd.Equals("NEW"))
+            if (cmd.Equals("new"))
             {
                 NewGame();//Inte implementerat
-            }else if (cmd.Equals("LD"))
+            }else if (cmd.Equals("ld"))
             {
                 LoadGame();//Inte implementerat
-            }else if (cmd.Equals("FGT"))
+            }else if (cmd.Equals("fgt"))
             {
-                StartFightMode();
+                FightMode fightMode = new FightMode();
+                player = CreateNewPlayer();
+                fightMode.StartFightMode(player, prog, msgHandler.gameOverMsg, sceneHandler, inBattle, msgHandler);
             }
             else
             {
@@ -144,9 +82,43 @@ namespace Game
 
         }
 
+        private static Player CreateNewPlayer()//Lägg in checkar som kollar namnet
+        {
+            Console.Clear();
+            Console.WriteLine("Vad heter din karaktär?");
+            string playerName = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("Välj klass");
+            Console.WriteLine("[WARRIOR]");
+            Console.WriteLine("[ROGUE]");
+            Console.WriteLine("[PALADIN]");
+            string classChoice;
+            do
+            {
+                classChoice = Console.ReadLine().ToLower();
+            } while (!classChoice.Equals("warrior") && !classChoice.Equals("rogue") && !classChoice.Equals("paladin"));
+
+            if (classChoice.Equals("warrior"))
+            {
+                Warrior player = new Warrior(playerName);
+                return player;
+            }
+            else if (classChoice.Equals("rogue"))
+            {
+                Rogue player = new Rogue(playerName);
+                return player;
+            }
+            else//Paladin just nu
+            {
+                Paladin player = new Paladin(playerName);
+                return player;
+            }
+        }
+
         private static void ExitGame()
         {
-            Environment.Exit(0);
+            isRunning = false;
+            //Environment.Exit(0);
         }
 
         private void LoadGame()//Ej implementerad ännu
@@ -162,311 +134,14 @@ namespace Game
             LoadUserInterfaceOutOfBattle("");
         }
 
-        private void PrintScene(string[,] newUi)//Tar en 2d-Array!
-        {
-            //Skriver ut den mottagna 2D-arrayen i konsolen.
-            Console.Clear();
-            for (int y = 0; y < newUi.GetLength(0); y++)
-            {
-                for (int x = 0; x < newUi.GetLength(1) - 1; x++)
-                {
-                    Point currentPoint = new Point(x, y);
-                    Console.Write(newUi[y, x]);
-                }
-                Console.WriteLine();
-            }
-            //if (!inBattle)
-            //    LoadUserInterfaceOutOfBattle("");
-        }
-
-        private void PrintScene(string[,] newUi, Enemy enemy)//Tar en 2d-Array!
-        {
-            //Skriver ut den mottagna 2D-arrayen i konsolen.
-            Console.Clear();
-            for (int y = 0; y < newUi.GetLength(0); y++)
-            {
-                for (int x = 0; x < newUi.GetLength(1) - 1; x++)
-                {
-                    Point currentPoint = new Point(x, y);
-                    Console.Write(newUi[y, x]);
-                }
-                Console.WriteLine();
-            }
-            if(inBattle)
-                LoadUserInterfaceInBattle(enemy);
-        }
-
-        private void PrintScene(string[,] newUi, Enemy enemy, string msg)//Tar en 2d-Array!
-        {
-            //Skriver ut den mottagna 2D-arrayen i konsolen.
-            Console.Clear();
-            for (int y = 0; y < newUi.GetLength(0); y++)
-            {
-                for (int x = 0; x < newUi.GetLength(1) - 1; x++)
-                {
-                    Point currentPoint = new Point(x, y);
-                    Console.Write(newUi[y, x]);
-                }
-                Console.WriteLine();
-            }
-            if (inBattle)
-                LoadUserInterfaceInBattle(enemy, msg);
-        }
-
-        private void ClearScene()//DONE! Skriver ut den tomma original-arrayen.
-        {
-            Console.Clear();
-            for (int y = 0; y < scene.GetLength(0); y++)
-            {
-                for (int x = 0; x < scene.GetLength(1) - 1; x++)
-                {
-                    Point currentPoint = new Point(x, y);
-                    Console.Write(scene[y, x]);
-                }
-                Console.WriteLine();
-            }
-        }
-
-        private void LoadUserInterfaceOutOfBattle(string msg)
+        public void LoadUserInterfaceOutOfBattle(string msg)
         {
             Console.WriteLine($" {msg}                                                           ");
             Console.WriteLine($"___________________________________________________________________________");
-            Console.WriteLine($"{player.name} CLASS: {player.playerClass} LVL:{player.lvl}");
-            Console.WriteLine($"Health: {player.healthPoints}   Strength: {player.strength} ");
-            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.armor}    ");
+            Console.WriteLine($"***************************************************************************");
+            Console.WriteLine($"***************************************************************************");
+            Console.WriteLine($"PLAYER {player.name}");
+            Console.WriteLine($"{player.playerClass} LVL: {player.lvl} Health: {player.currentHealthPoints}/{player.maxHealthPoints} Agility: {player.agility} Strength: {player.strength} Intellect: {player.intellect} Armor: {player.armor} ");
         }
-
-        private void LoadUserInterfaceInBattle(Enemy enemy)
-        {
-            Console.WriteLine($"                                                            ");
-            Console.WriteLine($"___________________________________________________________________________");
-            Console.WriteLine($"{player.name} CLASS: {player.playerClass} LVL:{player.lvl} Enemy: {enemy.name}");
-            Console.WriteLine($"Health: {player.healthPoints}   Strength: {player.strength}   Enemyhealth: {enemy.healthPoints} ");
-            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.armor}      Enemystrength: {enemy.strength}    ");
-        }
-
-        private void LoadUserInterfaceInBattle(Enemy enemy, string msg)
-        {
-            Console.WriteLine($"  {msg}                                                          ");
-            Console.WriteLine($"___________________________________________________________________________");
-            Console.WriteLine($"{player.name} CLASS: {player.playerClass} LVL:{player.lvl} Enemy: {enemy.name}");
-            Console.WriteLine($"Health: {player.healthPoints}   Strength: {player.strength}   Enemyhealth: {enemy.healthPoints} ");
-            Console.WriteLine($"Weapon: {player.healthPoints}   Armor: {player.armor}      Enemystrength: {enemy.strength}    ");
-        }
-
-        private void UpdateUserInterfaceInBattle(Enemy enemy, string msg)//UPDATE - LADDAR ÄVEN OM SCENE
-        {
-            PrintScene(CreateScene(GeneratePicture(enemy.schematic)), enemy, msg);
-        }
-
-        private static Player CreateNewPlayer()//Lägg in checkar som kollar namnet
-        {
-            Console.Clear();
-            Console.WriteLine("Vad heter din karaktär?");
-            string playerName = Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("Välj klass");
-            Console.WriteLine("WARRIOR");
-            Console.WriteLine("THIEF");
-            Console.WriteLine("MAGE");
-            string classChoice = Console.ReadLine();
-            Player player = new Player(playerName, classChoice);
-            return player;
-        }
-
-        private string[,] CreateScene(Dictionary<Point, string> schematic)
-        {
-            //Kopierar orig. arrayen.
-            var newUi = new string[scene.GetLength(0), scene.GetLength(1)];
-            newUi = scene.Clone() as string[,];
-
-            //Skriver ut dictionaryn på en kopierad scene.
-            foreach (KeyValuePair<Point, string> item in schematic)
-            {
-                newUi[item.Key.Y, item.Key.X] = item.Value;
-            }
-            //LoadScene(newUi);
-            return newUi;
-        }
-
-        private Dictionary<Point,string> GeneratePicture(string[,] schematic)
-        {
-            int x2 = (((75 - schematic.GetLength(1)) / 2) + schematic.GetLength(1));
-            Dictionary<Point, string> dictionarySchematic = new Dictionary<Point, string>();
-            for (int y = 0; y < schematic.GetLength(0); y++)
-            {
-                for (int x = ((75 - schematic.GetLength(1)) / 2); x < x2; x++)
-                {
-                    Point point = new Point(x, y);
-                    dictionarySchematic.Add(point, schematic[y, (x- ((75 - schematic.GetLength(1)) / 2))]);
-                }
-            }
-            return dictionarySchematic;
-        }
-
-        private void LoadFight(Enemy enemy)
-        {
-            inBattle = true;
-            PrintScene(CreateScene(GeneratePicture(enemy.schematic)), enemy);
-            StartFight(enemy);
-
-        }
-
-        private void StartFight(Enemy enemy)//inte så snygg metod asså.
-        {
-            Random rnd = new Random();
-            UpdateUserInterfaceInBattle(enemy, $"A wild {enemy.name} appears!");
-            System.Threading.Thread.Sleep(2000);
-
-
-            if(player.agility > enemy.agility)
-            {
-                do
-                {
-
-                    UpdateUserInterfaceInBattle(enemy, $"{player.name}s turn!");
-                    //Player turn
-                    if (FightMenu().Equals("FIGHT"))
-                    {
-                        UpdateUserInterfaceInBattle(enemy, $"");
-                        UpdateUserInterfaceInBattle(enemy, $"");
-                        UpdateUserInterfaceInBattle(enemy, $"");
-                        System.Threading.Thread.Sleep(1000);
-                        UpdateUserInterfaceInBattle(enemy, player.Attack(enemy));
-                        System.Threading.Thread.Sleep(2000);
-
-                    }
-                    else
-                    {
-                        Environment.Exit(0);
-                    }
-                    //Enemy turn
-                    if (enemy.healthPoints > 1)
-                    {
-                        UpdateUserInterfaceInBattle(enemy, $"{enemy.name} strikes back!");
-                        System.Threading.Thread.Sleep(2000);
-                        UpdateUserInterfaceInBattle(enemy, enemy.Attack(player));
-                        System.Threading.Thread.Sleep(3000);
-                    }
-                    else
-                    {
-                        //inget görs.
-                    }
-
-                } while (player.healthPoints > 1 && enemy.healthPoints > 1);
-            }
-            else
-            {
-                do
-                {
-                    //Enemy turn
-
-                        UpdateUserInterfaceInBattle(enemy, $"{enemy.name} attacks!");
-                        System.Threading.Thread.Sleep(2000);
-                        UpdateUserInterfaceInBattle(enemy, enemy.Attack(player));
-                        System.Threading.Thread.Sleep(3000);
-
-                    if (player.healthPoints > 1)
-                    {
-                        UpdateUserInterfaceInBattle(enemy, $"{player.name}s turn!");
-                        //Player turn
-                        if (FightMenu().Equals("FIGHT"))
-                        {
-                            UpdateUserInterfaceInBattle(enemy, $"");
-                            UpdateUserInterfaceInBattle(enemy, $"");
-                            UpdateUserInterfaceInBattle(enemy, $"");
-                            System.Threading.Thread.Sleep(1000);
-                            UpdateUserInterfaceInBattle(enemy, player.Attack(enemy));
-                            System.Threading.Thread.Sleep(2000);
-
-                        }
-                        else
-                        {
-                            Environment.Exit(0);
-                        }
-                    }
-                    else
-                    {
-                        //Inget görs
-                    }
-
-                } while (player.healthPoints > 1 && enemy.healthPoints > 1) ;
-            }
-            
-
-            if(enemy.healthPoints < 1)
-            {
-                UpdateUserInterfaceInBattle(enemy, player.AddExperience(enemy));
-                System.Threading.Thread.Sleep(1000);
-                PrintScene(CreateScene(GeneratePicture(victoryMsg)), enemy);
-                System.Threading.Thread.Sleep(3000);
-
-                inBattle = false;
-            }
-            else
-            {
-                PrintScene(CreateScene(GeneratePicture(defeatMsg)), enemy);
-                System.Threading.Thread.Sleep(3000);
-            }
-        }
-
-        private string FightMenu()
-        {
-            Console.WriteLine($"COMMANDS: FIGHT");
-            string cmd;
-            do
-            {
-                cmd = Console.ReadLine();
-            } while (!cmd.Equals("FIGHT"));
-            return cmd;
-        }
-
-        private void StartFightMode()
-        {
-            int victories = 0;
-            player = CreateNewPlayer();
-            Random rnd = new Random();
-            
-            do
-            {
-                LoadFight(GenerateFightModeEnemyList().ElementAt(rnd.Next(0,3)));
-                if(player.healthPoints > 1)
-                    victories++;
-
-            } while (player.healthPoints > 0);
-            ClearScene();
-            PrintScene(CreateScene(GeneratePicture(gameOverMsg)));
-            if (victories > 1)
-            {
-                LoadUserInterfaceOutOfBattle($"Du lyckades döda {victories} fiender!");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);
-                Console.Clear();
-                LoadMenu();
-            }
-
-            else
-            {
-                LoadUserInterfaceOutOfBattle($"Du lyckades döda {victories} fiende!");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);
-                Console.Clear();
-                LoadMenu();
-            }
-                
-        }
-
-        private List<Enemy> GenerateFightModeEnemyList()
-        {
-            Goblin goblin = new Goblin("Goblin");
-            Frog frog = new Frog("Frog");
-            SpiderSwarm spiderSwarm = new SpiderSwarm("Spider Swarm");
-            List<Enemy> enemyList = new List<Enemy>();
-            enemyList.Add(goblin);
-            enemyList.Add(frog);
-            enemyList.Add(spiderSwarm);
-            return enemyList;
-        }
-
     }
 }
