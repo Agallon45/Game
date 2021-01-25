@@ -9,6 +9,21 @@ namespace Game
         public string name;
         public double maxHealthPoints;
         public double currentHealthPoints;
+        public double CurrentHealthPoints
+        {
+            get { return currentHealthPoints; }
+            set
+            {
+                if (currentHealthPoints + value > maxHealthPoints)
+                {
+                    currentHealthPoints = maxHealthPoints;
+                }
+                if (currentHealthPoints + value < 0)
+                {
+                    currentHealthPoints = 0;
+                }
+            }
+        }
         public double strength;
         public double armor;
         public string[,] schematic;
@@ -17,6 +32,7 @@ namespace Game
         public double coinReward;
         public int roundNum;
         public bool debuffed;
+        public int initiative;
 
 
         public string Attack(Player player)
@@ -65,20 +81,32 @@ namespace Game
                     player.currentHealthPoints = player.currentHealthPoints - dmg;
                     if(player is Rogue && player.isDodging)
                     {
+                        currentHealthPoints -= player.strength;
                         player.isDodging = false;
-                        player.agility -= 10;
+                        player.agility -= 30;
+                        return $"{player.name} suffers {dmg} damage! {player.name} counter-attacks for {player.strength} damage!";
+                    }
+                    else
+                    {
+                        return $"{player.name} suffers {dmg} damage!";
                     }
                     
-                    return $"{player.name} suffers {dmg} damage!";
+                    
                 }
                 else
                 {
                     if (player is Rogue && player.isDodging)
                     {
+                        currentHealthPoints -= player.strength;
                         player.isDodging = false;
-                        player.agility -= 10;
+                        player.agility -= 30;
+                        return $"{name}s attack misses! {player.name} counter-attacks for {player.strength} damage!";
                     }
-                    return $"{name}s attack misses!";
+                    else
+                    {
+                        return $"{name}s attack misses!";
+                    }
+                    
                 }
             }
 

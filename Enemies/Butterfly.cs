@@ -27,6 +27,7 @@ namespace Game
             agility = 5;
             expAward = 20;
             coinReward = 15;
+            initiative = 3;
 
             //1 .'.         .'. .
             //2  |  \       /  |.
@@ -52,11 +53,12 @@ namespace Game
             this.schematic = butterflySchematic;
             maxHealthPoints = 35 * modifier;
             currentHealthPoints = maxHealthPoints;
-            strength = 10 * modifier;
-            armor = 1 * modifier;
-            agility = 5 * modifier;
-            expAward = 20 * modifier;
-            coinReward = 15 * modifier;
+            strength = 13 * modifier;
+            armor = 5 * modifier;
+            agility = 10 * modifier;
+            expAward = 25 * modifier;
+            coinReward = 20 * modifier;
+            initiative = 3;
 
             //1 .'.         .'. .
             //2  |  \       /  |.

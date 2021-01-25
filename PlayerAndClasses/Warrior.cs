@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Game
 {
+    
     class Warrior: Player
     {
 
@@ -12,12 +13,12 @@ namespace Game
         {
             this.name = name;
             commands.Add(1,"FIGHT");
-            commands.Add(2,"INTIMIDATING SHOUT");
+            commands.Add(2,"AGITATING SHOUT");
             commands.Add(3,"DEFEND");
             commands.Add(4,"ITEMS");
             maxHealthPoints = 100;
             currentHealthPoints = maxHealthPoints;
-            strength = 20;
+            strength = 15;
             armor = 50;
             agility = 5;
             intellect = 1;
@@ -25,6 +26,7 @@ namespace Game
             experience = 0;
             playerClass = "Warrior";
             isDefending = false;
+            initiative = 1;
         }
 
         public override void StatGain()
@@ -39,6 +41,9 @@ namespace Game
         public override string Defend()
         {
             isDefending = true;
+            defended = true;
+            armor += 20;
+            armorBuff += 20;
             return $"{name} is defending!";
         }
 
@@ -50,7 +55,7 @@ namespace Game
         public override string SwiftThinking() { return ""; }
 
 
-        public override string IntimidatingShout(Enemy enemy)
+        public override string AgitatingShout(Enemy enemy)
         {
             buffed = true;
             enemy.debuffed = true;
@@ -58,7 +63,7 @@ namespace Game
             strength += 3;
             enemy.strength = enemy.strength * 0.9;
 
-            return $"{name} lets out a fercious warcry! {enemy.name} trembles in fear...";
+            return $"{name} lets out a ferocious warcry! {enemy.name} trembles in fear...";
         }
     
 

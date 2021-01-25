@@ -16,13 +16,14 @@ namespace Game
             commands.Add(4,"ITEMS");
             maxHealthPoints = 90;
             currentHealthPoints = maxHealthPoints;
-            strength = 15;
+            strength = 12;
             armor = 30;
             agility = 6;
             intellect = 15;
             lvl = 1;
             experience = 0;
             playerClass = "Paladin";
+            initiative = 2;
         }
 
         public override void StatGain()
@@ -37,14 +38,17 @@ namespace Game
         public override string Heal()
         {
             Random rnd = new Random();
-            double healAmount = (rnd.Next((int)(intellect/2), (int)intellect) * 2);
-            if ((currentHealthPoints += healAmount) < maxHealthPoints)
+            double amount = rnd.Next(((int)intellect/2), ((int)intellect));
+            double healAmount = amount * 2;
+            double check = currentHealthPoints + healAmount;
+            if (check > maxHealthPoints)
             {
-                currentHealthPoints += healAmount;
+                
+                currentHealthPoints = maxHealthPoints;
             }
             else
             {
-                currentHealthPoints = maxHealthPoints;
+                currentHealthPoints += healAmount;
             }
             return $"{name} heals him/herself for {healAmount}!";
         }
@@ -77,7 +81,7 @@ namespace Game
 
         public override string Dodge() { return ""; }
 
-        public override string IntimidatingShout(Enemy enemy) { return ""; }
+        public override string AgitatingShout(Enemy enemy) { return ""; }
 
         public override string SwiftThinking() { return ""; }
     }

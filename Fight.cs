@@ -66,7 +66,7 @@ namespace Game
                 roundNum++;
                 player.roundNum = roundNum;
                 enemy.roundNum = roundNum;
-                if (player.agility > enemy.agility)
+                if (player.initiative > enemy.initiative)
                 {
                     PlayerTurn(roundNum);
                     if(enemy.currentHealthPoints > 0)
@@ -80,6 +80,14 @@ namespace Game
                 }
             }
             RemoveBuffsAtEndOfRound();
+            if(player is Warrior)
+            {
+                if (player.defended)
+                {
+                    player.armor -= player.armorBuff;
+                    player.defended = false;
+                }
+            }
             if(enemy.currentHealthPoints < 1)
             {
                 UpdateUserInterfaceInBattle(enemy, player.AddExperienceAndCoin(enemy));
@@ -151,11 +159,20 @@ namespace Game
                     System.Threading.Thread.Sleep(2000);
                     break;
                 case "BLESS":
-                    UpdateUserInterfaceInBattle(enemy, player.Bless());
-                    System.Threading.Thread.Sleep(2000);
+                    if (player.buffed)
+                    {
+                        UpdateUserInterfaceInBattle(enemy, " You are already blessed!");
+                        System.Threading.Thread.Sleep(2000);
+                        PlayerTurn(roundNum);
+                    }
+                    else
+                    {
+                        UpdateUserInterfaceInBattle(enemy, player.Bless());
+                        System.Threading.Thread.Sleep(2000);
+                    }
                     break;
-                case "INTIMIDATING SHOUT":
-                    UpdateUserInterfaceInBattle(enemy, player.IntimidatingShout(enemy));
+                case "AGITATING SHOUT":
+                    UpdateUserInterfaceInBattle(enemy, player.AgitatingShout(enemy));
                     System.Threading.Thread.Sleep(3000);
                     break;
                 case "SWIFT THINKING":

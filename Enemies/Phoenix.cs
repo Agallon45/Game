@@ -43,6 +43,7 @@ namespace Game
             agility = 40;
             expAward = 95;
             coinReward = 120;
+            initiative = 4;
         }
 
         public Phoenix(string name, double modifier)
@@ -81,6 +82,7 @@ namespace Game
             agility = 40 * modifier;
             expAward = 95 * modifier;
             coinReward = 120 * modifier;
+            initiative = 4;
         }
     }
 }

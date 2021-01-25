@@ -26,6 +26,7 @@ namespace Game
             lvl = 1;
             experience = 0;
             playerClass = "Rogue";
+            initiative = 5;
         }
 
         public override void StatGain()
@@ -39,9 +40,9 @@ namespace Game
 
         public override string Dodge()
         {
-            agility += 10;
+            agility += 30;
             isDodging = true;
-            return $"{name} is trying to dodge!";
+            return $"{name} is trying to dodge, while setting up a counter-attack!";
         }
 
         public override string SwiftThinking()
@@ -58,7 +59,7 @@ namespace Game
 
         public override string RemoveBuff() { return ""; }
 
-        public override string IntimidatingShout(Enemy enemy) { return ""; }
+        public override string AgitatingShout(Enemy enemy) { return ""; }
 
 
 

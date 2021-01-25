@@ -10,13 +10,29 @@ namespace Game
 
         public double maxHealthPoints;
         public double currentHealthPoints;
+        public double CurrentHealthPoints
+        {
+            get { return currentHealthPoints; }
+            set
+            {
+                if (currentHealthPoints + value > maxHealthPoints)
+                {
+                    currentHealthPoints = maxHealthPoints;
+                }
+                if(currentHealthPoints + value < 0)
+                {
+                    currentHealthPoints = 0;
+                }
+            }
+        }
+
         public double strength;
         public double armor;
         public double agility;
         public double intellect;
         public double lvl;
         public double experience;
-        public Dictionary<int,string> commands = new Dictionary<int,string>();
+        public Dictionary<int, string> commands = new Dictionary<int, string>();
         public Dictionary<int, Item> items = new Dictionary<int, Item>();
         public bool isDefending;//Det här kan inte vara det bästa sättet att lösa det här på?
         public bool isDodging;//Det här kan inte vara det bästa sättet att lösa det här på?
@@ -25,6 +41,9 @@ namespace Game
         public int roundNum;
         public bool buffed;
         public int roundNumRemove;
+        public int armorBuff;
+        public bool defended;
+        public int initiative;
 
         public string playerClass;
 
@@ -35,6 +54,17 @@ namespace Game
             {
                 double dmg = rnd.Next(1, (int)strength) + strength;
                 dmg = dmg - (enemy.armor * 0.1);
+                if (playerClass.ToLower().Equals("rogue"))
+                {
+                    int crit = rnd.Next(0, 3);
+                    if (crit == 1)
+                    {
+                        dmg = dmg * 2;
+                        enemy.currentHealthPoints = enemy.currentHealthPoints - dmg;
+                        return $"{name} is concentrating. {enemy.name} suffers a critical hit for {dmg} damage!";
+                    }
+
+                }
                 enemy.currentHealthPoints = enemy.currentHealthPoints - dmg;
                 return $"{enemy.name} suffers {dmg} damage!";
             }
@@ -48,7 +78,7 @@ namespace Game
         {
             coin += enemy.coinReward;
             experience += enemy.expAward;
-            if(experience > (50*lvl))
+            if (experience > (50 * lvl))
             {
                 return LevelUp();
             }
@@ -64,7 +94,7 @@ namespace Game
             experience = 0;
             StatGain();
             return $"{name} has advanced to level {lvl}!";
-            
+
         }
 
         public void ShowInventory()
@@ -90,7 +120,7 @@ namespace Game
 
             if (cmd.Equals("b"))
                 OpenInventory();//Det här blir nog inte bra...
-            else if(items[cmd2] is Weapon || items[cmd2] is Armor)
+            else if (items[cmd2] is Weapon || items[cmd2] is Armor)
             {
                 ConsoleKey choice;
                 if (items[cmd2].equipped == true)
@@ -100,20 +130,21 @@ namespace Game
                         Console.WriteLine("Do you want to unequip this item? [Y]/[N]");
                         choice = Console.ReadKey(true).Key;
                     } while (choice != ConsoleKey.Y && choice != ConsoleKey.N);
-                    if(choice == ConsoleKey.Y)
+                    if (choice == ConsoleKey.Y)
                     {
                         items[cmd2].equipped = false;
                         ItemStatChange(items[cmd2]);
                         OpenInventory();
                     }
-                }else
+                }
+                else
                 {
                     do
                     {
                         Console.WriteLine("Do you want to equip this item? [Y]/[N]");
                         choice = Console.ReadKey(true).Key;
                     } while (choice != ConsoleKey.Y && choice != ConsoleKey.N);
-                    if(choice == ConsoleKey.Y)
+                    if (choice == ConsoleKey.Y)
                     {
                         items[cmd2].equipped = true;
                         ItemStatChange(items[cmd2]);
@@ -121,8 +152,9 @@ namespace Game
 
                     }
 
-                 }
-            }else if(items[cmd2] is Consumable)
+                }
+            }
+            else if (items[cmd2] is Consumable)
             {
                 Console.WriteLine("That is not something you can equip. X");
                 Console.ReadKey(true);
@@ -170,7 +202,7 @@ namespace Game
                 OpenInventory();
             else if (items[cmd2] is Consumable)
             {
-                if((currentHealthPoints += items[cmd2].healthPoints) < maxHealthPoints)
+                if ((currentHealthPoints += items[cmd2].healthPoints) < maxHealthPoints)
                 {
                     currentHealthPoints += items[cmd2].healthPoints;
                 }
@@ -178,7 +210,7 @@ namespace Game
                 {
                     currentHealthPoints = maxHealthPoints;
                 }
-                
+
                 items.Remove(cmd2);
                 OpenInventory();
             }
@@ -200,10 +232,11 @@ namespace Game
                 Console.WriteLine("[C]ONSUME ITEM \t E[Q]UIP/UNE[Q]UIP ITEM \t [E]XIT");
                 choice = Console.ReadKey(true).Key;
             } while (choice != ConsoleKey.C && choice != ConsoleKey.Q && choice != ConsoleKey.E);
-            if(choice == ConsoleKey.Q)
+            if (choice == ConsoleKey.Q)
             {
                 EquipItem();
-            }else if(choice == ConsoleKey.C)
+            }
+            else if (choice == ConsoleKey.C)
             {
                 ConsumeItem();
             }
@@ -234,21 +267,22 @@ namespace Game
                     {
                         Item item = items[cmd2];
                         items.Remove(cmd2);
-                        
+
                         return item;
                     }
 
 
-                }catch (KeyNotFoundException)
-                    {
+                }
+                catch (KeyNotFoundException)
+                {
                     Console.WriteLine("ID not present. X");
                     Console.ReadKey();
                     return null;
-                    }
-            } while(isRunning);
+                }
+            } while (isRunning);
         }
-        
-    
+
+
 
         public abstract void StatGain();
 
@@ -262,7 +296,7 @@ namespace Game
 
         public abstract string RemoveBuff();
 
-        public abstract string IntimidatingShout(Enemy enemy);
+        public abstract string AgitatingShout(Enemy enemy);
 
         public abstract string SwiftThinking();
 

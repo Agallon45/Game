@@ -33,8 +33,9 @@ namespace Game
             strength = 10;
             armor = 5;
             agility = 20;
-            expAward = 15;
+            expAward = 16;
             coinReward = 20;
+            initiative = 1;
         }
 
         public Frog(string name, double modifier)
@@ -61,11 +62,12 @@ namespace Game
             this.schematic = frogSchematic;
             maxHealthPoints = 30 * modifier;
             currentHealthPoints = maxHealthPoints;
-            strength = 10 * modifier;
-            armor = 5 * modifier;
+            strength = 12 * modifier;
+            armor = 10 * modifier;
             agility = 20 * modifier;
-            expAward = 15 * modifier;
-            coinReward = 20 * modifier;
+            expAward = 18 * modifier;
+            coinReward = 23 * modifier;
+            initiative = 1;
         }
 
 

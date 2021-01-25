@@ -51,6 +51,7 @@ namespace Game
                 agility = 30;
                 expAward = 75;
                 coinReward = 65;
+                initiative = 2;
 
 
 
@@ -103,6 +104,7 @@ namespace Game
                 agility = 30 * modifier;
                 expAward = 75 * modifier;
                 coinReward = 65 * modifier;
+                initiative = 2;
 
 
 
