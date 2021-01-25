@@ -45,7 +45,7 @@ namespace Game
 
                     if ((rnd.Next(1, 100) + agility) > player.agility)
                     {
-                        double dmg = rnd.Next(1, (int)strength) + strength;
+                        double dmg = rnd.Next(1, (int)strength) + (strength*0.8);
                         dmg = dmg - (player.armor * 0.1);
                         player.currentHealthPoints = player.currentHealthPoints - (dmg*0.5);
                         player.isDefending = false;
@@ -61,7 +61,7 @@ namespace Game
                 {
                     if ((rnd.Next(1, 100) + agility) > player.agility)
                     {
-                        double dmg = rnd.Next(1, (int)strength) + strength;
+                        double dmg = rnd.Next(1, (int)strength) + (strength * 0.8);
                         dmg = dmg - (player.armor * 0.1);
                         player.currentHealthPoints = player.currentHealthPoints - dmg;
                         return $"{player.name} suffers {dmg} damage!";
@@ -76,7 +76,7 @@ namespace Game
             {
                 if ((rnd.Next(1, 100) + agility) > player.agility)
                 {
-                    double dmg = rnd.Next(1, (int)strength) + strength;
+                    double dmg = rnd.Next(1, (int)strength) + (strength * 0.8);
                     dmg = dmg - (player.armor * 0.1);
                     player.currentHealthPoints = player.currentHealthPoints - dmg;
                     if(player is Rogue && player.isDodging)

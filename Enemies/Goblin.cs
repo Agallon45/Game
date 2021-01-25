@@ -39,7 +39,7 @@ namespace Game
             this.schematic = goblinSchematic;
             maxHealthPoints = 60;
             currentHealthPoints = maxHealthPoints;
-            strength = 15;
+            strength = 12;
             armor = 10;
             agility = 5;
             expAward = 22;
@@ -81,10 +81,10 @@ namespace Game
             this.schematic = goblinSchematic;
             maxHealthPoints = 60 * modifier;
             currentHealthPoints = maxHealthPoints;
-            strength = 16 * modifier;
+            strength = 12 * modifier;
             armor = 15 * modifier;
             agility = 6 * modifier;
-            expAward = 25 * modifier;
+            expAward = 30 * modifier;
             coinReward = 28 * modifier;
             initiative = 1;
 

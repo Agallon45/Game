@@ -112,6 +112,10 @@ namespace Game
         {
             string cmd;
             int cmd2;
+            try
+            {
+
+            
             do
             {
                 Console.WriteLine("Enter the ID of the item you wish to equip/unequip. [B]ACK");
@@ -119,7 +123,7 @@ namespace Game
             } while (!((int.TryParse(cmd, out cmd2))) && items.ContainsKey(cmd2) && !cmd.Equals("b"));
 
             if (cmd.Equals("b"))
-                OpenInventory();//Det här blir nog inte bra...
+                OpenInventory();
             else if (items[cmd2] is Weapon || items[cmd2] is Armor)
             {
                 ConsoleKey choice;
@@ -158,7 +162,14 @@ namespace Game
             {
                 Console.WriteLine("That is not something you can equip. X");
                 Console.ReadKey(true);
-                OpenInventory();//Det här blir nog inte bra...
+                OpenInventory();
+            }
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine("You don't have an item with that ID. X");
+                Console.ReadKey(true);
+                OpenInventory();
             }
         }
 
