@@ -4,36 +4,109 @@ using System.Text;
 
 namespace Game
 {
-    class Enemy
+    abstract class Enemy
     {
         public string name;
         public double maxHealthPoints;
-        public double currentHealthPoints;
+        private double currentHealthPoints;
         public double CurrentHealthPoints
         {
             get { return currentHealthPoints; }
             set
             {
-                if (currentHealthPoints + value > maxHealthPoints)
+                if (value > maxHealthPoints)
                 {
                     currentHealthPoints = maxHealthPoints;
                 }
-                if (currentHealthPoints + value < 0)
+                else if (value < 0)
                 {
                     currentHealthPoints = 0;
                 }
+                else
+                {
+                    currentHealthPoints = value;
+                }
             }
         }
-        public double strength;
-        public double armor;
+        private double strength;
+        public double Strength
+        {
+            get { return strength; }
+            set
+            {
+                if (value < 3)
+                {
+                    strength = 2;
+                }
+                else
+                {
+                    strength = value;
+                }
+            }
+        }
+        private double armor;
+        public double Armor
+        {
+            get { return armor; }
+            set
+            {
+                if (value < 3)
+                {
+                    armor = 2;
+                }
+                else
+                {
+                    armor = value;
+                }
+            }
+        }
+        private double agility;
+        public double Agility
+        {
+            get { return agility; }
+            set
+            {
+                if (value < 3)
+                {
+                    agility = 2;
+                }
+                else
+                {
+                    agility = value;
+                }
+            }
+        }
         public string[,] schematic;
-        public double agility;
         public double expAward;
         public double coinReward;
         public int roundNum;
         public bool debuffed;
         public int initiative;
+        public bool buffed;//för specialatk
+        public double buffAmount;//för specialatk
+        public int roundNumRemove;
+        public double negStrength;
+        public double negAgility;
+        public bool isDotted;
+        public double dot;
 
+        public string EnemyTurn(Player player)
+        {
+            Random rnd = new Random();
+            int atk = rnd.Next(0, 2);
+            if (atk == 0)
+            {
+                return Attack(player);
+            }
+            else
+            {
+                return SpecialAtk(player);
+            }
+        }
+
+        public abstract string RemoveBuffs();
+
+        public abstract string SpecialAtk(Player player);
 
         public string Attack(Player player)
         {
@@ -43,14 +116,18 @@ namespace Game
                 if (player.isDefending)
                 {
 
-                    if ((rnd.Next(1, 100) + agility) > player.agility)
+                    if ((rnd.Next(1, 100) + agility) > player.Agility)
                     {
-                        double dmg = rnd.Next(1, (int)strength) + (strength*0.8);
-                        dmg = dmg - (player.armor * 0.1);
-                        player.currentHealthPoints = player.currentHealthPoints - (dmg*0.5);
+                        double dmg = rnd.Next(1, (int)strength) + (strength * 0.8);
+                        dmg = dmg - (player.Armor * 0.1);
+                        dmg = Math.Round(dmg);//ROUND
+                        if (dmg < 1)
+                            dmg = 1;
+
+                        player.CurrentHealthPoints = player.CurrentHealthPoints - (dmg * 0.5);
                         player.isDefending = false;
-                        return $"{player.name} suffers {dmg} damage! {dmg*0.5} damage blocked!";
-                        
+                        return $"{player.name} suffers {dmg} damage! {dmg * 0.5} damage blocked!";
+
                     }
                     else
                     {
@@ -59,11 +136,14 @@ namespace Game
                 }
                 else
                 {
-                    if ((rnd.Next(1, 100) + agility) > player.agility)
+                    if ((rnd.Next(1, 100) + agility) > player.Agility)
                     {
                         double dmg = rnd.Next(1, (int)strength) + (strength * 0.8);
-                        dmg = dmg - (player.armor * 0.1);
-                        player.currentHealthPoints = player.currentHealthPoints - dmg;
+                        dmg = dmg - (player.Armor * 0.1);
+                        dmg = Math.Round(dmg);//ROUND
+                        if (dmg < 1)
+                            dmg = 1;
+                        player.CurrentHealthPoints = player.CurrentHealthPoints - dmg;
                         return $"{player.name} suffers {dmg} damage!";
                     }
                     else
@@ -74,39 +154,42 @@ namespace Game
             }
             else
             {
-                if ((rnd.Next(1, 100) + agility) > player.agility)
+                if ((rnd.Next(1, 100) + agility) > player.Agility)
                 {
                     double dmg = rnd.Next(1, (int)strength) + (strength * 0.8);
-                    dmg = dmg - (player.armor * 0.1);
-                    player.currentHealthPoints = player.currentHealthPoints - dmg;
-                    if(player is Rogue && player.isDodging)
+                    dmg = dmg - (player.Armor * 0.1);
+                    dmg = Math.Round(dmg);//ROUND
+                    if (dmg < 1)
+                        dmg = 1;
+                    player.CurrentHealthPoints = player.CurrentHealthPoints - dmg;
+                    if (player is Rogue && player.isDodging)
                     {
-                        currentHealthPoints -= player.strength;
+                        currentHealthPoints -= player.Strength;
                         player.isDodging = false;
-                        player.agility -= 30;
-                        return $"{player.name} suffers {dmg} damage! {player.name} counter-attacks for {player.strength} damage!";
+                        player.Agility -= 30;
+                        return $"{player.name} suffers {dmg} damage! {player.name} counter-attacks for {player.Strength} damage!";
                     }
                     else
                     {
                         return $"{player.name} suffers {dmg} damage!";
                     }
-                    
-                    
+
+
                 }
                 else
                 {
                     if (player is Rogue && player.isDodging)
                     {
-                        currentHealthPoints -= player.strength;
+                        currentHealthPoints -= player.Strength;
                         player.isDodging = false;
-                        player.agility -= 30;
-                        return $"{name}s attack misses! {player.name} counter-attacks for {player.strength} damage!";
+                        player.Agility -= 30;
+                        return $"{name}s attack misses! {player.name} counter-attacks for {player.Strength} damage!";
                     }
                     else
                     {
                         return $"{name}s attack misses!";
                     }
-                    
+
                 }
             }
 

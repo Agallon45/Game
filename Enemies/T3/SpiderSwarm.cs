@@ -44,11 +44,11 @@ namespace Game
 
                 this.name = name;
                 this.schematic = spiderSwarmSchematic;
-                maxHealthPoints = 275;
-                currentHealthPoints = maxHealthPoints;
-                strength = 45;
-                armor = 20;
-                agility = 30;
+                maxHealthPoints = 120;
+                CurrentHealthPoints = maxHealthPoints;
+                Strength = 18;
+                Armor = 30;
+                Agility = 20;
                 expAward = 75;
                 coinReward = 65;
                 initiative = 2;
@@ -97,11 +97,11 @@ namespace Game
 
                 this.name = name;
                 this.schematic = spiderSwarmSchematic;
-                maxHealthPoints = 275 * modifier;
-                currentHealthPoints = maxHealthPoints;
-                strength = 45 * modifier;
-                armor = 20 * modifier;
-                agility = 30 * modifier;
+                maxHealthPoints = 120 * modifier;
+                CurrentHealthPoints = maxHealthPoints;
+                Strength = 18 * modifier;
+                Armor = 30 * modifier;
+                Agility = 20 * modifier;
                 expAward = 75 * modifier;
                 coinReward = 65 * modifier;
                 initiative = 2;
@@ -113,5 +113,59 @@ namespace Game
 
 
         }
-}
+        public override string SpecialAtk(Player player)
+        {
+            if (!player.isDotted)
+            {
+                //player.debuffed = true;
+                player.isDotted = true;
+                player.dot = player.Agility;
+                player.Agility -= 30;
+                player.negAgility = 30;
+                player.roundNumRemove = roundNum + 2;
+                return$"{name} swarms {player.name} with thousands of tiny spiders. Its not very nice.";
+
+            }
+            else
+            {
+                return Attack(player);
+            }
+        }
+
+        public override string RemoveBuffs()
+        {
+            if (debuffed)
+            {
+                if (roundNum == roundNumRemove)
+                {
+                    Strength += negStrength;
+                    negStrength = 0;
+                    Agility += negAgility;
+                    negAgility = 0;
+                    debuffed = false;
+                    roundNumRemove = 0;
+                    return $"{name} is no longer debuffed";
+                }
+            }
+            if (isDotted)
+            {
+                if(roundNum == roundNumRemove)
+                {
+                    dot = 0;
+                    isDotted = false;
+                    return $"{name} is no longer suffering periodic damage.";
+                }
+                else
+                {
+                    CurrentHealthPoints -= dot;
+                    return $"{name} suffers {dot} damage!";
+                }
+            }
+            else
+            {
+                return "Swishy swishy! That's what spiders sound like.";
+            }
+            
+        }
+    }
 }

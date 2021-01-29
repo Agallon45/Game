@@ -6,6 +6,27 @@ namespace Game
 {
     class Paladin: Player
     {
+        private double currentHealthPoints;
+        public override double CurrentHealthPoints
+
+        {
+            get { return currentHealthPoints; }
+            set
+            {
+                if (value > maxHealthPoints)
+                {
+                    currentHealthPoints = maxHealthPoints;
+                }
+                else if (value < 0)
+                {
+                    currentHealthPoints = 0;
+                }
+                else
+                {
+                    currentHealthPoints = value;
+                }
+            }
+        }
 
         public Paladin(string name)
         {
@@ -15,11 +36,11 @@ namespace Game
             commands.Add(3, "BLESS");
             commands.Add(4,"ITEMS");
             maxHealthPoints = 90;
-            currentHealthPoints = maxHealthPoints;
-            strength = 12;
-            armor = 30;
-            agility = 6;
-            intellect = 15;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 12;
+            Armor = 30;
+            Agility = 6;
+            Intellect = 15;
             lvl = 1;
             experience = 0;
             playerClass = "Paladin";
@@ -29,52 +50,58 @@ namespace Game
         public override void StatGain()
         {
             maxHealthPoints += 7;
-            currentHealthPoints = maxHealthPoints;
-            strength += 2;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength += 2;
             //agility += 0;
-            intellect += 2;
+            Intellect += 2;
         }
 
         public override string Heal()
         {
             Random rnd = new Random();
-            double amount = rnd.Next(((int)intellect/2), ((int)intellect));
+            double amount = rnd.Next(((int)Intellect/2), ((int)Intellect));
             double healAmount = amount * 2;
-            double check = currentHealthPoints + healAmount;
-            if (check > maxHealthPoints)
-            {
+            CurrentHealthPoints += healAmount;
+            //double check = CurrentHealthPoints + healAmount;
+            //if (check > maxHealthPoints)
+            //{
                 
-                currentHealthPoints = maxHealthPoints;
-            }
-            else
-            {
-                currentHealthPoints += healAmount;
-            }
-            return $"{name} heals him/herself for {healAmount}!";
+            //    CurrentHealthPoints = maxHealthPoints;
+            //}
+            //else
+            //{
+            //    CurrentHealthPoints += healAmount;
+            //}
+            return $"{name} heals self for {healAmount}!";
         }
 
         public override string Bless()
         {
-            buffed = true;
+            blessed = true;
             roundNumRemove = roundNum + 2;
-            strength += 10;
-            intellect += 10;
-            agility += 10;
-            armor += 10;
+            Strength += 10;
+            Intellect += 10;
+            Agility += 10;
+            Armor += 10;
+            posStrength = 10;
+            posIntellect = 10;
+            posAgility = 10;
+            posArmor = 10;
+
 
             return $"{name} has cast Bless on self.";
         }
 
-        public override string RemoveBuff()
-        {
-            buffed = false;
-            strength -= 10;
-            agility -= 10;
-            intellect -= 10;
-            armor -= 10;
+        //public override string RemoveBuff()
+        //{
+        //    buffed = false;
+        //    Strength -= 10;
+        //    Agility -= 10;
+        //    Intellect -= 10;
+        //    Armor -= 10;
 
-            return $"Bless fades from {name}...";
-        }
+        //    return $"Bless fades from {name}...";
+        //}
 
 
         public override string Defend() { return ""; }

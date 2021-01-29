@@ -38,11 +38,11 @@ namespace Game
             this.name = name;
             this.schematic = goblinSchematic;
             maxHealthPoints = 60;
-            currentHealthPoints = maxHealthPoints;
-            strength = 12;
-            armor = 10;
-            agility = 5;
-            expAward = 22;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 12;
+            Armor = 10;
+            Agility = 5;
+            expAward = 35;
             coinReward = 25;
             initiative = 1;
 
@@ -80,14 +80,59 @@ namespace Game
             this.name = name;
             this.schematic = goblinSchematic;
             maxHealthPoints = 60 * modifier;
-            currentHealthPoints = maxHealthPoints;
-            strength = 12 * modifier;
-            armor = 15 * modifier;
-            agility = 6 * modifier;
-            expAward = 30 * modifier;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 12 * modifier;
+            Armor = 15 * modifier;
+            Agility = 6 * modifier;
+            expAward = 35 * modifier;
             coinReward = 28 * modifier;
             initiative = 1;
 
+        }
+
+        public override string SpecialAtk(Player player)
+        {
+            player.CurrentHealthPoints -= Strength;
+            Strength += 1;
+            CurrentHealthPoints += Strength;
+
+            return $"{name} sucks {player.name}s blood! {name} is revitalized!";
+        }
+
+        public override string RemoveBuffs()
+        {
+            if (debuffed)
+            {
+                if (roundNum == roundNumRemove)
+                {
+                    Strength += negStrength;
+                    negStrength = 0;
+                    Agility += negAgility;
+                    negAgility = 0;
+                    debuffed = false;
+                    roundNumRemove = 0;
+                    return $"{name} is no longer debuffed";
+                }
+            }
+
+            if (isDotted)
+            {
+                if (roundNum == roundNumRemove)
+                {
+                    dot = 0;
+                    isDotted = false;
+                    return $"{name} is no longer suffering periodic damage.";
+                }
+                else
+                {
+                    CurrentHealthPoints -= dot;
+                    return $"{name} suffers {dot} damage!";
+                }
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

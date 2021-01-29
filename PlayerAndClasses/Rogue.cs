@@ -6,9 +6,27 @@ namespace Game
 {
     class Rogue: Player
     {
+        private double currentHealthPoints;
+        public override double CurrentHealthPoints
 
-
-
+        {
+            get { return currentHealthPoints; }
+            set
+            {
+                if (value > maxHealthPoints)
+                {
+                    currentHealthPoints = maxHealthPoints;
+                }
+                else if (value < 0)
+                {
+                    currentHealthPoints = 0;
+                }
+                else
+                {
+                    currentHealthPoints = value;
+                }
+            }
+        }
 
         public Rogue(string name)
         {
@@ -18,36 +36,38 @@ namespace Game
             commands.Add(3,"DODGE");
             commands.Add(4,"ITEMS");
             maxHealthPoints = 60;
-            currentHealthPoints = maxHealthPoints;
-            strength = 10;
-            armor = 10;
-            agility = 30;
-            intellect = 5;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 10;
+            Armor = 10;
+            Agility = 30;
+            Intellect = 5;
             lvl = 1;
             experience = 0;
             playerClass = "Rogue";
             initiative = 5;
+            strengthLoss = 0;
         }
 
         public override void StatGain()
         {
             maxHealthPoints += 5;
-            currentHealthPoints = maxHealthPoints;
-            strength += 1;
-            agility += 1;
-            intellect += 2;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength += 1;
+            Agility += 1;
+            Intellect += 2;
         }
 
         public override string Dodge()
         {
-            agility += 30;
+            Agility += 30;
             isDodging = true;
             return $"{name} is trying to dodge, while setting up a counter-attack!";
         }
 
         public override string SwiftThinking()
         {
-            maxHealthPoints -= 10;
+            Strength -= 2;
+            strengthLoss += 2;
             return $"{name} acts with ease- and swiftness. {name} acts twice in a row! ";
         }
 
@@ -57,7 +77,7 @@ namespace Game
 
         public override string Bless() { return ""; }
 
-        public override string RemoveBuff() { return ""; }
+        //public override string RemoveBuff() { return ""; }
 
         public override string AgitatingShout(Enemy enemy) { return ""; }
 

@@ -28,12 +28,30 @@ namespace Game
                 sceneHandler = new SceneHandler();
                 msgHandler = new MessageHandler();
                 prog.StartGame();
+                //---------------------TESTAREA-------------------------------------------------------------
+                //SAKER SOM BEHÖVS FÖR TEST AV DET MESTA:
+                //Warrior player = new Warrior("Zav");
+                //TESTA STORE:
                 //StoreHandler storeHandler = new StoreHandler("store");
                 //Store store = storeHandler.CreateStore();
-                //Warrior player = new Warrior("Zav");
                 //player.coin = 200;
                 //store.PrintStore(player);
                 //player.OpenInventory();
+                //TESTA BILDER:
+                //Dragon dragon = new Dragon("Dragon");
+                //Aardvark aardvark = new Aardvark("Aard");
+                //Ant ant = new Ant("Ant");
+                //Bear bear = new Bear("Bear");
+                //Castle castle = new Castle("Castle");
+                //Cow cow = new Cow("Cow");
+                //Griffin griffin = new Griffin("Griffin");
+                //Knight knight = new Knight("Knight");
+                //Moose knight = new Moose("Moose");
+                //Snake knight = new Snake("Snake");
+                //Fight fight = new Fight(knight, player,sceneHandler, prog, msgHandler, true, 0);
+                //fight.UpdateUserInterfaceInBattle(knight, $"A wild {knight.name} appears!");
+                //Console.ReadKey();
+                //---------------------------------------------------------------------------------------
                 prog.LoadMenu();
             } while (isRunning);
 
@@ -141,7 +159,7 @@ namespace Game
             Console.WriteLine($"***************************************************************************");
             Console.WriteLine($"***************************************************************************");
             Console.WriteLine($"PLAYER {player.name}");
-            Console.WriteLine($"{player.playerClass} LVL: {player.lvl} Health: {player.currentHealthPoints}/{player.maxHealthPoints} Agility: {player.agility} Strength: {player.strength} Intellect: {player.intellect} Armor: {player.armor} ");
+            Console.WriteLine($"{player.playerClass} LVL: {player.lvl} Health: {player.CurrentHealthPoints}/{player.maxHealthPoints} Agility: {player.Agility} Strength: {player.Strength} Intellect: {player.Intellect} Armor: {player.Armor} ");
         }
     }
 }

@@ -7,6 +7,27 @@ namespace Game
     
     class Warrior: Player
     {
+        private double currentHealthPoints;
+        public override double CurrentHealthPoints
+
+        {
+            get { return currentHealthPoints; }
+            set
+            {
+                if (value > maxHealthPoints)
+                {
+                    currentHealthPoints = maxHealthPoints;
+                }
+                else if (value < 0)
+                {
+                    currentHealthPoints = 0;
+                }
+                else
+                {
+                    currentHealthPoints = value;
+                }
+            }
+        }
 
 
         public Warrior(string name)
@@ -17,11 +38,11 @@ namespace Game
             commands.Add(3,"DEFEND");
             commands.Add(4,"ITEMS");
             maxHealthPoints = 100;
-            currentHealthPoints = maxHealthPoints;
-            strength = 15;
-            armor = 50;
-            agility = 5;
-            intellect = 1;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 15;
+            Armor = 50;
+            Agility = 5;
+            Intellect = 1;
             lvl = 1;
             experience = 0;
             playerClass = "Warrior";
@@ -32,8 +53,8 @@ namespace Game
         public override void StatGain()
         {
             maxHealthPoints += 10;
-            currentHealthPoints = maxHealthPoints;
-            strength += 2;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength += 2;
             //agility += 1;
             //intellect += 1;
         }
@@ -42,7 +63,7 @@ namespace Game
         {
             isDefending = true;
             defended = true;
-            armor += 20;
+            Armor += 20;
             armorBuff += 20;
             return $"{name} is defending!";
         }
@@ -57,20 +78,22 @@ namespace Game
 
         public override string AgitatingShout(Enemy enemy)
         {
-            buffed = true;
+            //buffed = true;
+            agitated = true;
             enemy.debuffed = true;
             roundNumRemove = roundNum + 2;
-            strength += 3;
-            enemy.strength = enemy.strength * 0.9;
+            Strength += 3;
+            posStrength = 3;
+            enemy.Strength = enemy.Strength * 0.9;
 
             return $"{name} lets out a ferocious warcry! {enemy.name} trembles in fear...";
         }
     
 
-    public override string RemoveBuff() {
-        buffed = false;
-        strength -= 3;
-        return $"{name} is no longer agitated...";
-    }
+    //public override string RemoveBuff() {
+    //    buffed = false;
+    //    Strength -= 3;
+    //    return $"{name} is no longer agitated...";
+    //}
     }
 }

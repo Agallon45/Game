@@ -29,10 +29,10 @@ namespace Game
             this.name = name;
             this.schematic = frogSchematic;
             maxHealthPoints = 30;
-            currentHealthPoints = maxHealthPoints;
-            strength = 10;
-            armor = 5;
-            agility = 20;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 10;
+            Armor = 5;
+            Agility = 20;
             expAward = 16;
             coinReward = 20;
             initiative = 1;
@@ -61,13 +61,91 @@ namespace Game
             this.name = name;
             this.schematic = frogSchematic;
             maxHealthPoints = 30 * modifier;
-            currentHealthPoints = maxHealthPoints;
-            strength = 12 * modifier;
-            armor = 10 * modifier;
-            agility = 20 * modifier;
+            CurrentHealthPoints = maxHealthPoints;
+            Strength = 10 * modifier;
+            Armor = 10 * modifier;
+            Agility = 20 * modifier;
             expAward = 18 * modifier;
             coinReward = 23 * modifier;
             initiative = 1;
+        }
+
+        public override string SpecialAtk(Player player)
+        {
+            Random rnd = new Random();
+            if(rnd.Next(0,8)>3)
+            {
+
+            
+            if (!buffed)
+            {
+                buffed = true;
+                Agility += 70;
+                roundNumRemove = roundNum + 2;
+                return $"{name} is very slippery! Attacks seems only to glance off of it!";
+            }
+            else
+            {
+                buffed = false;
+                Agility = Agility -= 70;
+                return Attack(player);
+            }
+            }
+            else
+            {
+                return Attack(player);
+            }
+        }
+
+
+
+
+        public override string RemoveBuffs()
+        {
+            if (buffed)
+            {
+
+
+                if (roundNum == roundNumRemove)
+                {
+                    buffed = false;
+                    Agility -= 70;
+                    roundNumRemove = 0;
+                    return $"{name} is suddenly very dry. Attack {name} now!";
+                }
+            }
+            if (debuffed)
+            {
+                if (roundNum == roundNumRemove)
+                {
+                    Strength += negStrength;
+                    negStrength = 0;
+                    Agility += negAgility;
+                    negAgility = 0;
+                    debuffed = false;
+                    roundNumRemove = 0;
+                    return $"{name} is no longer debuffed";
+                }
+            }
+            if (isDotted)
+            {
+                if (roundNum == roundNumRemove)
+                {
+                    dot = 0;
+                    isDotted = false;
+                    return $"{name} is no longer suffering periodic damage.";
+                }
+                else
+                {
+                    CurrentHealthPoints -= dot;
+                    return $"{name} suffers {dot} damage!";
+                }
+            }
+            else
+            {
+                return "Croak...";
+            }
+
         }
 
 
