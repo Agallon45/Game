@@ -26,7 +26,7 @@ namespace Game
         };
             this.name = name;
             this.schematic = antSchematic;
-            maxHealthPoints = 40;
+            maxHealthPoints = 50;
             CurrentHealthPoints = maxHealthPoints;
             Strength = 25;
             Armor = 1;
@@ -56,7 +56,7 @@ namespace Game
         };
             this.name = name;
             this.schematic = antSchematic;
-            maxHealthPoints = 50 * modifier;
+            maxHealthPoints = 55 * modifier;
             CurrentHealthPoints = maxHealthPoints;
             Strength = 25 * modifier;
             Armor = 1 * modifier;
