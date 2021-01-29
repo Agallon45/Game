@@ -97,8 +97,9 @@ namespace Game
                         PlayerTurn(roundNum);
                 }
             }
-            RemoveBuffsAtEndOfRound();
-            if(player is Warrior)
+            //RemoveBuffsAtEndOfRound();
+            RemoveBuffs();
+            if (player is Warrior)
             {
                 if (player.defended)
                 {

@@ -78,7 +78,7 @@ namespace Game
 
         public override string SpecialAtk(Player player)
         {
-            double dmg = CurrentHealthPoints;
+            double dmg = Math.Round(CurrentHealthPoints/2);
             player.CurrentHealthPoints -= dmg;
             double dmg2 = Math.Round(Strength / 2);
             CurrentHealthPoints -= dmg2;

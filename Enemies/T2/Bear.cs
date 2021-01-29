@@ -31,7 +31,7 @@ namespace Game
             maxHealthPoints = 80;
             CurrentHealthPoints = maxHealthPoints;
             Strength = 15;
-            Armor = 20;
+            Armor = 75;
             Agility = 2;
             expAward = 37;
             coinReward = 40;
@@ -63,7 +63,7 @@ namespace Game
             maxHealthPoints = 80 * modifier;
             CurrentHealthPoints = maxHealthPoints;
             Strength = 15 * modifier;
-            Armor = 20 * modifier;
+            Armor = 75 * modifier;
             Agility = 2 * modifier;
             expAward = 40 * modifier;
             coinReward = 40 * modifier;
