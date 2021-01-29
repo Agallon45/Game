@@ -20,7 +20,7 @@ namespace Game
             Console.WriteLine("***\t\t\t                                                                 ***");
             Console.WriteLine($"*** Try to reach as many victories as possible.                                          ***");
             Console.WriteLine("***\tAt every 5th victory you have a chance to buy and use or equip items.            ***");
-            Console.WriteLine("***\tAt every 5th victory you get to pick a new skill from 3 randomly selected ones. X***");
+            Console.WriteLine("***\tAt every 6th victory you get to pick a new skill from 3 randomly selected ones. X***");
             Console.WriteLine("***                                                                                      ***");
             Console.WriteLine("***                                                                                      ***");
             Console.WriteLine("***                                                                                      ***");
