@@ -204,6 +204,22 @@ namespace Game
                     player.buffed = false;
                 }
             }
+
+            if (player.blessed)
+            {
+                if(roundNum == player.roundNumRemove)
+                {
+                    player.blessed = false;
+                    player.Strength -= player.posStrength;
+                    player.Intellect -= player.posIntellect;
+                    player.Agility -= player.posAgility;
+                    player.Armor -= player.posArmor;
+                    player.posStrength = 0;
+                    player.posIntellect = 0;
+                    player.posAgility = 0;
+                    player.posArmor = 0;
+                }
+            }
             
 
         }

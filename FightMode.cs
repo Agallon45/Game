@@ -85,10 +85,10 @@ namespace Game
                 Console.WriteLine("********************************************************************************************");
                 Console.WriteLine($"Press any key to continue...");
                 Console.ReadKey(true);
-                double modified = (victories * 0.1)+1;
+
                 //if (victories < 3)
                 //{
-                    List<Enemy> fightList = GenerateFightModeEnemyList(modified);
+                    List<Enemy> fightList = GenerateFightModeEnemyList(victories);
                     Enemy enemy = fightList.ElementAt(rnd.Next(0, fightList.Count));
                     LoadFight(enemy, prog, sceneHandler, inBattle, player, msgHandler);
                 //}
@@ -219,6 +219,7 @@ namespace Game
 
         private List<Enemy> GenerateFightModeEnemyList(double victories)
         {
+            double modifier = (victories * 0.1) + 1;
             List<Enemy> enemyList = new List<Enemy>();
             if (victories < 3)
             {
@@ -234,10 +235,10 @@ namespace Game
                 return enemyList;
             }else if(victories < 7)
             {
-                Cow cow = new Cow("Cow", victories);
-                Frog frog = new Frog("Frog", victories);
-                Butterfly butterfly = new Butterfly("Butterfly", victories);
-                Aardvark aardvark = new Aardvark("Aardvark", victories);
+                Cow cow = new Cow("Cow", modifier);
+                Frog frog = new Frog("Frog", modifier);
+                Butterfly butterfly = new Butterfly("Butterfly", modifier);
+                Aardvark aardvark = new Aardvark("Aardvark", modifier);
                 enemyList.Add(aardvark);
                 enemyList.Add(frog);
                 enemyList.Add(butterfly);
@@ -258,10 +259,10 @@ namespace Game
                 return enemyList;
             }else if(victories < 16)
             {
-                Ant ant = new Ant("Ant", victories);
-                Bear bear = new Bear("Bear", victories);
-                Goblin goblin = new Goblin("Goblin", victories);
-                Moose moose = new Moose("Moose", victories);
+                Ant ant = new Ant("Ant", modifier);
+                Bear bear = new Bear("Bear", modifier);
+                Goblin goblin = new Goblin("Goblin", modifier);
+                Moose moose = new Moose("Moose", modifier);
                 enemyList.Add(ant);
                 enemyList.Add(bear);
                 enemyList.Add(goblin);
@@ -282,10 +283,10 @@ namespace Game
                 return enemyList;
             }else if (victories < 27)
             {
-                Griffin griffin = new Griffin("Griffin", victories);
-                Knight knight = new Knight("Knight", victories);
-                Snake snake = new Snake("Snake", victories);
-                SpiderSwarm spiderSwarm = new SpiderSwarm("Spider Swarm", victories);
+                Griffin griffin = new Griffin("Griffin", modifier);
+                Knight knight = new Knight("Knight", modifier);
+                Snake snake = new Snake("Snake", modifier);
+                SpiderSwarm spiderSwarm = new SpiderSwarm("Spider Swarm", modifier);
                 enemyList.Add(griffin);
                 enemyList.Add(knight);
                 enemyList.Add(snake);
