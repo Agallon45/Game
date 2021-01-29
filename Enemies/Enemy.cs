@@ -100,7 +100,15 @@ namespace Game
             }
             else
             {
-                return SpecialAtk(player);
+                if ((rnd.Next(1, 100) + agility) > player.Agility)
+                {
+
+                    return SpecialAtk(player);
+                }
+                else
+                {
+                    return $"{name}s attack misses!";
+                }
             }
         }
 

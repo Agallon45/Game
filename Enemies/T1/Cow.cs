@@ -74,8 +74,8 @@ namespace Game
         {
             if (!player.debuffed)
             {
-                player.Intellect -= 30;
-                player.negIntellect = 30;
+                player.Intellect -= 15;
+                player.negIntellect = 15;
                 player.debuffed = true;
                 return $"{name} says no! That's not going to happen!";
             }

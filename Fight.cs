@@ -252,8 +252,19 @@ namespace Game
             //player.posHealth = 0;
             //player.Armor -= player.posArmor;
             //player.posArmor = 0;
-
-        }
+            if (player.blessed)
+            {
+                player.blessed = false;
+                player.Strength -= player.posStrength;
+                player.Intellect -= player.posIntellect;
+                player.Agility -= player.posAgility;
+                player.Armor -= player.posArmor;
+                player.posStrength = 0;
+                player.posIntellect = 0;
+                player.posAgility = 0;
+                player.posArmor = 0;
+            }
+    }
 
         public void PlayerTurn(int roundNum)
         {
